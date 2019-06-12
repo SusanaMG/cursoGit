@@ -1,0 +1,834 @@
+COMANDOS GIT:
+
+Para limpiar consola:
+clear
+------------------------------------------------------------------------------
+Para salir de consola de edición:
+:q 
+
+Para salir de consola de edición y guardar los cambios:
+:wq
+------------------------------------------------------------------------------
+Para arreglar un error por el salto de carro (warning: LF will be replaced by CRLF in directorio/nombreArchivo.ext):
+git config core.autocrlf true
+------------------------------------------------------------------------------
+******************************************************************************
+2. Git - Fundamentos
+
+------------------------------------------------------------------------------
+Para consultar la configuración:
+git config --global -l
+Para consultar la configuración y editarla:
+git config --global -e
+------------------------------------------------------------------------------
+Para colocarnos en el directorio:
+cd + espacio + arrastrar la carpeta a la que queremos movernos
+
+Para saber en qué carpeta estamos:
+pwd
+
+Para ver todos los archivos y carpetas de un proyecto:
+ls -al
+------------------------------------------------------------------------------
+Creación de alias:
+git config --global alias.lg "log --oneline --decorate --all --graph"
+git config --global alias.s "status -s -b"
+------------------------------------------------------------------------------
+Para crear el repositorio local y crear carpeta .git (oculta, no tocarla) en el repositorio:
+git init
+------------------------------------------------------------------------------
+Para añadir un archivo determinado:
+git add nombreArchivo.extension
+
+Para añadir todos los archivos de un tipo en el directorio actual:
+git add *.extension
+
+Para añadir todos los archivos de la extensión de TODO el proyecto:
+git add "*.extension"
+
+Para añadir todos los archivos de un directorio:
+git add directorio/
+
+Para añadir todos los archivos de un tipo dentro de un directorio determinado:
+git add directorio/*.extension
+
+Para añadir todos los archivos (3 opciones) al snapshot:
+git add .
+git add -A
+git add --all
+
+Para añadir todos los archivos excepto los de un tipo determinado:
+git add -A
+git reset *.extension
+
+Para añadir archivos que listemos:
+git add <lista de archivos>
+------------------------------------------------------------------------------
+Para crear un registro histórico de los cambios con mensaje:
+git commit -m "mensaje"
+
+Para crear un registro histórico de los cambios + consola de texto para escribir el mensaje:
+git commit
+En la consola escribimos el mensaje multilínea
+------------------------------------------------------------------------------
+Para marcar en rojo los archivos modificados desde el último commit hasta la fecha y en verde los archivos sin modificar que están en el repositorio local. También indica en qué rama estamos trabajando:
+git status
+
+Modo silent:
+git status -s
+
+Modo silent e indica la rama en la que estamos (2 opciones):
+git status -s -b
+git status -sb
+------------------------------------------------------------------------------
+HEAD: es el último commit en la rama actual o la línea del tiempo en la cual estamos trabajando.
+------------------------------------------------------------------------------
+Para mostrar el log extendido o reducido:
+git log
+git log --oneline
+------------------------------------------------------------------------------
+Para mostrar el log de una forma más estilosa:
+git log --oneline --decorate --all --graph
+------------------------------------------------------------------------------
+Para listar todas las modificaciones entre el commit anterior y el momento actual mientras los archivos no estén en el stage:
+git diff
+------------------------------------------------------------------------------
+Para listar todas las modificaciones entre el commit anterior y el momento actual una vez añadidos los archivos al stage y sin commit:
+git diff --staged
+------------------------------------------------------------------------------
+Para quitar una archivo de la adición al stage:
+git reset HEAD nombreArchivo.extension
+------------------------------------------------------------------------------
+******************************************************************************
+3. Un poco más allá de los fundamentos de GIT
+
+------------------------------------------------------------------------------
+Para recomponer el archivo al último commit (revertir los cambios de un archivo):
+git checkout -- nombreArchivo.extension
+------------------------------------------------------------------------------
+Para recomponer el repositorio al último commit:
+git checkout -- .
+------------------------------------------------------------------------------
+Para moverse a un commit:
+git checkout IdCommit
+------------------------------------------------------------------------------
+Para moverse a un commit anterior al referenciado:
+git checkout IdCommit^
+
+Para moverse a dos commits anteriores al referenciado:
+git checkout IdCommit^^
+
+Para moverse un número de commits anteriores al referenciado:
+git checkout IdCommit~5
+
+Aplicado al HEAD:
+git checkout HEAD^
+git checkout HEAD^^
+git checkout HEAD~5
+
+Para moverse a un commit anterior al Head de una rama concreta:
+git checkout nombreRama^
+------------------------------------------------------------------------------
+Para agregar un archivos al stage y al tiempo hacer el commit simultáneamente:
+git commit -am "mensaje"
+------------------------------------------------------------------------------
+Para editar el mensaje del último commit:
+git commit --amend -m "Nuevo mensaje"
+
+Para editar el mensaje del último commit + consola de texto para escribir el mensaje:
+git commit --amend
+En la consola escribimos el mensaje multilínea
+------------------------------------------------------------------------------
+Para revertir a un punto de la historia, no modifica, no destruye lo hecho hasta ese momento. Para apuntar al commit anterior al último:
+git reset --soft HEAD^
+------------------------------------------------------------------------------
+Para revertir a un punto de la historia, no modifica, no destruye lo hecho hasta ese momento, se pierden los commits y los cambios, pero no se destruyen los archivos. Es el comando por defecto del reset:
+git reset --mixed referenciaCommit
+------------------------------------------------------------------------------
+Para revertir a un punto de la historia, sí modifica y sí destruye/crea lo hecho hasta ese momento, se pierden/ganan los commits y los cambios y sí se destruyen/crean los archivos:
+git reset --hard referenciaCommit
+------------------------------------------------------------------------------
+Para consultar el registro de todo lo que sucede en el repositorio:
+git reflog
+------------------------------------------------------------------------------
+Para actualizar todo:
+git add -u
+------------------------------------------------------------------------------
+Para renombrar archivos desde git:
+1º: git mv nombreViejo.extension nombreNuevo.extension
+2º: git s ==> se ve el renombramiento del archivo
+3º: git commit -m "Renombrando archivo"
+------------------------------------------------------------------------------
+Para renombrar archivos desde fuera de git:
+1º: cambiar el nombre desde donde sea
+2º: git s ==> se ve archivo eliminado pendiente de entrar al stage (es el que tiene el nombre viejo) y un archivo sin seguimiento (es el que tiene el nombre nuevo)
+3º: actualizar con: git add -u
+4º: git s ==> se ve archivo eliminado ya en el stage (es el que tiene el nombre viejo) y un archivo sin seguimiento (es el que tiene el nombre nuevo)
+5º: git add -A
+6º: git s ==> se ve ya el renombramiento del archivo ("R" en verde)
+7º: git commit -m "Renombrando archivo"
+------------------------------------------------------------------------------
+Para eliminar archivos desde git:
+1º: git rm salvar-mundo.txt
+2º: git commit -m "Borrando archivo"
+------------------------------------------------------------------------------
+Para borrar archivos desde fuera de git:
+1º: eliminar el archivo desde donde sea
+2º: git s ==> se ve el archivo borrado fuera del stage
+3º: actualizar con: git add -u
+4º: git s ==> se ve archivo eliminado ya en el stage ("D" en verde)
+5º: git commit -m "Borrando archivo"
+------------------------------------------------------------------------------
+Para no darle seguimiento a un archivo o directorio:
+1º: crear archivo ".gitignore"
+2º: añadir en el fichero .gitignore, los directorios, tipos de archivos y archivos concretos que se quieren excluir en el repositorio (ej: nombreArchivo.extension, *.tipoExtension, nombreDirectorio/)
+3º: git add .gitignore
+4º: git commit -m "Agregando el gitignore"
+------------------------------------------------------------------------------
+******************************************************************************
+4. Ramas, uniones, conflictos y tags
+
+------------------------------------------------------------------------------
+*** Teoría: Merge - Uniones ***
+A.- Fast-forward: se dispara cuando git detecta que no hay ningún cambio en la rama principal y los cambios de la nueva rama pueden ser reintegrados y cada uno de los commits de la rama nueva pasa a ser parte de la rama principal. Se puede desactivar si no se quiere esta característica.
+            *----*----*                                       
+           /           \		
+  --------*------------------ ==>    --------*-*----*----*------
+       
+B.- Uniones automáticas: git detecta que en la rama principal hubo algún cambio que la ramas secundarias desconocen pero al hacer el merge, detecta que no se modificaron las mismas líneas de código y no hay conflictos y git lo une de forma automática y marca que desde ese momento ambas ramas se unen.
+            *----*----*                                
+           /           \
+  --------*-----*-*-----*--*-- ==>    --------*-*----***----*------
+
+C.- Unión manual: git no puede resolver la unión de forma automática. En la rama secundaria se hacen modificaciones que también afectan a las líneas modificadas en la rama principal y git pide que se haga una unión manual y una vez resuelto el conflicto, git produce un commit nuevo, que es el 'merge commit', y luego se sigue trabajando en una misma rama. 
+  --------*----                                
+               \
+  --------*-----<>-----------
+------------------------------------------------------------------------------
+Para crear una rama:
+git branch nombreRama
+(opcional poner 'rama-' para indicarlo) git branch rama-nombreRama
+------------------------------------------------------------------------------
+Para movernos a una rama:
+git checkout nombreRama
+------------------------------------------------------------------------------
+Para crear una rama y movernos simultáneamente a ella:
+git checkout -b nombreRama
+(-b = branch)
+------------------------------------------------------------------------------
+Para consultar las ramas y saber cuál es la rama actual que sale marcada con un asterisco:
+git branch 
+------------------------------------------------------------------------------
+Para saber cuáles son las diferencias entre una rama y otra:
+git diff nombreRamaActual nombreRama2
+------------------------------------------------------------------------------
+Para borrar una rama:
+git branch -d nombreRama
+------------------------------------------------------------------------------
+Para unión de ramas fast-forward:
+1º: movernos a la rama donde se quiere fusionar algo: 
+git checkout master
+2º: unión de ramas:
+git merge nombreRamaSecundaria
+3º: comprobación por el log
+git lg
+4º: borrar rama secundaria:
+git branch -d nombreRamaSecundaria
+------------------------------------------------------------------------------
+Para unión de ramas unión automática:
+1º: movernos a la rama donde se quiere fusionar algo: 
+git checkout master
+2º: unión de ramas:
+git merge nombreRamaSecundaria
+3º: insertar un mensaje para el commit automático (desde editor de texto que sale)
+4º: comprobación por el log
+git lg
+5º: borrar rama secundaria:
+git branch -d nombreRamaSecundaria
+------------------------------------------------------------------------------
+Para unión de ramas con conflictos:
+1º: movernos a la rama donde se quiere fusionar algo: 
+git checkout master
+2º: unión de ramas:
+git merge nombreRamaSecundaria
+
+Sale el mensaje:
+Auto-merging misiones.md
+CONFLICT (content): Merge conflict in misiones.md
+Automatic merge failed; fix conflicts and then commit the result.
+
+3º: editamos a manos los cambios oportunos para resolver el conflicto a mano desde un editor de código/texto o usando el Atom y los botones que ofrece.
+4º: para ver los archivos que tienen el conflicto:
+git s
+5º: hacemos un commit manual con su mensaje
+git commit -am "Resolviendo conflictos"
+6º: comprobación por el log
+git lg
+7º: borrar rama secundaria:
+git branch -d nombreRamaSecundaria
+------------------------------------------------------------------------------
+*** TEORÍA: Tags ***
+Los Tags o etiquetas son usados para marcar releases o versiones de un programa. Un tag hace referencia a un commit y al estado de todo el proyecto en ese punto.
+------------------------------------------------------------------------------
+Para crear un tag en el punto en el que se está del proyecto (simple):
+git tag nombreTag
+------------------------------------------------------------------------------
+Para crear un tag en el punto en el que se está actualmente del proyecto (opción recomendada):
+git tag -a nombreTag -m "mensaje"
+(-a = anotación)
+------------------------------------------------------------------------------
+Para crear un tag en un commit específico:
+git tag -a nombreTag referenciaCommit -m "mensaje" 
+------------------------------------------------------------------------------
+Para borrar un tag:
+git tag -d nombreTag
+------------------------------------------------------------------------------
+Para ver los tags que se tienen:
+git tag
+------------------------------------------------------------------------------
+Para ver el mensaje e información de un tag:
+git show nombreTag
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Para mover forzadamente (-f) una rama a un commit concreto:
+git branch -f nombreRama HEAD~numCommits
+Ejemplo: git branch -f master HEAD~3
+------------------------------------------------------------------------------
+******************************************************************************
+5. Git Stash y  Git Rebase - Para realizar cambios de emergencia
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+*** TEORÍA: ***
+
+** Git Stash: guardar los archivos en los que se estaba trabajando sin tener hecho el commit, para guardarlas en un área temporal stash durante un tiempo, usar el proyecto como se tenía antes de meterle ese desarrollo de funcionalidades y luego, en el futuro volver al proyecto con ellas. // Lo ideal es borrar el stash, una vez se retoma el trabajo pero se pueden tener varios stash. // El stash solo guarda los archivos a los que git da seguimiento.
+
+La idea es: stash --> Cambios + commit/s --> Recuperar el stash.
+------------------------------------------------------------------------------
+Para usar la funcionalidad Stash (2 opciones):
+git stash
+git stash save
+
+Mensaje que sale:
+Saved working directory and index state WIP on master: 5440fe5 nombreCommit
+(WIP = WORK IN PROGRESS)
+
+La idea es: stash --> Cambios + commit/s --> Recuperar el stash
+------------------------------------------------------------------------------
+Para saber todos los WIP que hay en el proyecto:
+git stash list
+------------------------------------------------------------------------------
+Para restaurar el ÚLTIMO registro en el slash (sin borrarlo):
+git stash apply
+Ejemplo: git stash apply stash@{3} (si tuviese 0,1,2 y 3)
+------------------------------------------------------------------------------
+Para restaurar un registro concreto cuando hay varios en el stash (sin borrarlo):
+git stash apply idDelStash
+Ejemplo: git stash apply stash@{1}
+------------------------------------------------------------------------------
+Para recuperar/extraer los cambios que se tienen en el último stash y eliminarlo (ya no sale en la lista, ni el log):
+git stash pop 
+------------------------------------------------------------------------------
+Para recuperar/extraer los cambios que se tienen en el último stash y eliminarlo (ya no sale en la lista, ni el log) -- CUANDO HAY CONFLICTO:
+1º: git stash pop 
+
+Mensaje que sale:
+Auto-merging README.md
+CONFLICT (content): Merge conflict in archivosConConflicto
+The stash entry is kept in case you need it again.
+
+2º: resolvemos el conflicto manualmente.
+3º: miramos el status y aparece: UU FicheroResolucionConflicto
+git s 
+4º: agregamos al stage y hacemos el commit:
+git commit -am "mensaje Retomando el trabajo que guardé en el stash"
+5º: miramos el status y confirmamos que no hay nada pendiente:
+git s
+6º: miramos el log y sigue saliendo info del stash que hay que borrar:
+git lg 
+7º: borrar el último registro que estaba en el stash:
+git stash drop
+8º: comprobación del borrado (no debe salir):
+git stash list
+------------------------------------------------------------------------------
+Para borrar el PRIMER registro que estaba en el stash:
+git stash drop
+Ejemplo: git stash drop stash@{0}
+------------------------------------------------------------------------------
+Para borrar un registro concreto cuando hay varios en el slash:
+git stash drop idDelStash
+Ejemplo: git stash drop stash@{1}
+------------------------------------------------------------------------------
+Para guardar todo menos los archivos en el stage o en el escenario (porque esos archivos están listos para hacer un commit):
+git stash save --keep-index
+------------------------------------------------------------------------------
+Para incluir todos los archivos, junto a los que git no les da seguimiento:
+git stash save --include-untracked
+------------------------------------------------------------------------------
+Para obtener más información de cada entrada del stash de la lista y saber qué se hizo:
+git stash list --stat
+------------------------------------------------------------------------------
+Para obtener más información de todo lo que se hizo en el ULTIMO stash:
+git show stash 
+------------------------------------------------------------------------------
+Para obtener más información de todo lo que se hizo en un stash concreto:
+git show stash@{1}
+------------------------------------------------------------------------------
+Para agregar un mensaje al stash para dar información y que salga al listar los registros del stash:
+git stash save "Mensaje"
+------------------------------------------------------------------------------
+Para borrar TODAS las entradas que hay en el stash (no hay manera de recuperarlas):
+git stash clear
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+*** TEORÍA: ***
+
+** Git Rebase: permite rehacer cosas que ya se hicieron previamente, sin afectar mucho a la línea del tiempo. Unión de commits que son similares.
+
+El rebase básico sirve para actualizar una rama secundaria cuando los commits de la rama master sean necesarios para la rama, creando un área temporal donde se mueven los commits de la secundaria, luego se mueve el puntero de la rama secundaria hacia el último commit de la master y por último, se mueven por orden los commits del área temporal a la rama secundaria. 
+
+
+El rebase interactivo sirve para ordenar commits, para corregir mensajes de los commits, para unir commits y para separar commits. Se trata de mover a un área temporal el número de commits que nos interesan por orden y luego, los va a devolver igual como fueron ejecutados en la línea de tiempo.
+------------------------------------------------------------------------------
+Para usar la funcionalidad Rebase básica y actualizar el punto donde se creó una rama:
+1º: nos movemos a la rama secundaria:
+git checkout ramaSecundaria 
+2º: actualizamos la rama secundaria con la rama master:
+git rebase master
+3º: nos movemos a la rama master (si queremos hacer la parte de unificar ramas):
+git checkout master
+4º: unimos las ramas (hace un fast-forward):
+gir merge ramaSecundaria
+5º: borramos la rama secundaria:
+git branch -d ramaSecundaria
+------------------------------------------------------------------------------
+Para usar la funcionalidad Rebase interactivo y unificar commits (squash):
+1º: nos movemos a la rama master:
+git checkout master
+2º: seleccionamos el número de commits que nos interesa unificar (son 2 opciones):
+git rebase -i HEAD~numCommits
+o
+git rebase -i IdCommitDondeSeApunta~numCommits
+(-i = para que sea interactivo)
+Ejemplo: git rebase -i HEAD~2 
+(siendo 2 el número de commits que se quieren)
+3º: sale un mensaje. En el editor de texto ponemos a uno de los 2 commits a unificar la palabra "squash" o "s" donde sale la palabra "pick":
+
+pick acea380 Actualización de las misiones
+pick scea457 Actualización de las misiones
+*** PASA A:
+pick acea380 Actualización de las misiones
+squash scea457 Actualización de las misiones
+
+Salimos del editor de texto y sale otra pantalla del editor de texto.
+
+4º: en el editor de texto ponemos un mensaje informativo de la fusión.
+------------------------------------------------------------------------------
+Para usar la funcionalidad Rebase interactivo y modificar el mensaje de un commit (reword):
+1º: nos movemos a la rama master:
+git checkout master
+2º: seleccionamos el último commit al que cambiar el mensaje:
+git rebase -i HEAD~1
+3º: sale un mensaje. En el editor de texto ponemos al commit a modificar la palabra "reword" o "r" donde sale la palabra "pick" (pero todavía no modificamos el mensaje):
+
+pick scea457 Actualización de las misiones
+*** PASA A:
+reword scea457 Actualización de las misiones
+
+Salimos del editor de texto y sale un otra pantalla del editor de texto.
+
+4º: en el editor de texto editamos el mensaje del commit:
+
+Actualización de las misiones
+*** PASA A:
+Update: Misiones
+
+Salimos del editor de texto y sale un mensaje:
+
+[detached HEAD 0a92e5c] Update: Misiones completadas
+ Author: Strider <fernando.herrera85@gmail.com>
+ Date: Fri Jun 23 15:44:41 2017 -0600
+ 1 file changed, 4 insertions(+)
+Successfully rebased and updated refs/heads/master.
+
+5º: si ha salido "detached HEAD" en el primer mensaje, colocarnos en la rama master para evitar que nos cree una rama:
+git checkout master
+------------------------------------------------------------------------------
+Para usar la funcionalidad Rebase interactivo y separar un commit en varios commits (edit):
+(nos suponemos en la rama master)
+1º: realizamos cambios en varios ficheros (mínimo en 2) en nuestro proyecto o repositorio y los incluimos en un único commit (ej: cambios en fichero1.ext y fichero2.ext)
+2º: seleccionamos el número de commits que nos interesa ver:
+git rebase HEAD~1
+
+3º: sale un mensaje. En el editor de texto ponemos al commit a separar la palabra "edit" o "e" donde sale la palabra "pick":
+
+pick scea457 Commit a separar
+*** PASA A:
+edit scea457 Commit a separar
+
+Salimos del editor de texto y sale un mensaje:
+
+Stopped at aa43ca5...  commits
+You can amend the commit now, with
+  git commit --amend
+Once you are satisfied with your changes, run
+  git rebase --continue
+
+4º: revertimos los cambios del último commit sin destruirlos:
+git reset HEAD^
+
+Sale mensaje:
+
+Unstaged changes after reset:
+M       fichero1.ext
+M       fichero2.ext
+
+5º: separamos los cambios en commits diferentes:
+git add fichero1.ext 
+git commit -m "Actualizaciones fichero1"
+***Y luego:
+git add fichero2.ext 
+git commit -m "Actualizaciones fichero2"
+(o si era el único cambio que quedaba: git commit -am "Actualizaciones fichero2")
+
+6º: continuamos con el rebase:
+git rebase --continue
+
+Sale el mensaje:
+Successfully rebased and updated refs/heads/master.
+
+Hay que ignorar durante el proceso de rebase el mensaje que va saliendo:
+## HEAD (no branch)
+Al terminar el rebase, se comprueba con git s y vemos que estamos en la rama master:
+## master
+------------------------------------------------------------------------------
+******************************************************************************
+6. Inicios en GitHub, Git Remote, Push & Pull
+
+------------------------------------------------------------------------------
+*** TEORÍA: ***
+
+** Repositorio remoto: respaldo de nuestro repositorio en otra máquina distinta a la nuestra. Interactuamos con el servidor remoto por si falla el disco duro de nuestra máquina (Git Remote). 
+
+** Git y GitHub son cosas distintas. 
+
+** Git no maneja el acceso al repositorio. No hay un control de acceso para usuarios, para eso existen otros servicios:
+A._ Hosted Services (BitBucket, GitHub): usamos los servicios que nos ofrecen otras personas.
+B._ Manejados por nosotros mismos (Gitosis)
+
+** GitHub: es una plataforma de desarrollo colaborativo de software para alojar proyectos.
+Tiene una versión gratuita pública que ofrece: 
+* Repositorios ilimitados.
+* Páginas HTML, CSS y JS ilimitadas.
+* Push, Pull, Clones ilimitados.
+* Issues, Wikis, estadísticas ilimitadas.
+* Organizaciones ilimitadas.
+* Participación gratuita en proyectos privados. 
+
+** Git Push: subir al servidor remoto los cambios pendientes que no están en él y que se han hecho en nuestra máquina local. Se recomienda realizar un pull antes de hacer un push.
+
+** Git Pull: bajar los cambios desde el servidor remoto a nuestra máquina. Automáticamente intenta hacer un merge, aunque puede ser destructivo según los cambios que se hayan hecho en local (si antes de hacer esos cambios locales no se había hecho un pull). Es buena práctica hacer un pull antes de hacer un push. 
+
+** Git Fetch: bajar los cambios desde el servidor remoto a nuestra máquina pero no hace un merge automático. 
+------------------------------------------------------------------------------
+Para consultar el repositorio remoto en el que estoy trabajando:
+git remote
+------------------------------------------------------------------------------
+Para revisar todos los repositorios remotos agregados a un repositorio local:
+git remote -v
+
+Mensaje:
+origin  https://github.com/SusanaMG/udemy-heroes.git (fetch)
+origin  https://github.com/SusanaMG/udemy-heroes.git (push)
+------------------------------------------------------------------------------
+Para agregar un origen remoto a nuestro repositorio local:
+
+git remote add nombreReposRemoto URLdelRepositorio
+git remote add origin http://github.com/usuario/nombreRepositorio.git
+
+Se pueden tener varios remote en un mismo repositorio.
+add = agregar nuevo repositorio remoto.
+origin = nombre del repositorio remoto ('origin' es estándar).
+URL = dirección de GitHub del repositorio remoto.
+
+Ejemplo: git remote add origin https://github.com/SusanaMG/udemy-heroes.git
+------------------------------------------------------------------------------
+Para hacer una subida de cambios al origen desde una rama concreta y no tener que especificarla en las siguientes ocasiones (no se suben lo Tags):
+
+git push -u nombreReposRemoto nombreRama
+
+nombreReposRemoto = remoto donde se va a subir la información.
+nombreRama = rama que deseamos enviar.
+-u = nos ayuda a que la próxima vez que queramos hacer push, no necesitemos especificar la rama ('nombreRama' queda por defecto).
+Ejemplo: git push -u origin master
+------------------------------------------------------------------------------
+INFORMACIÓN SOBRE GITHUB:
+https://github.com/
+------------------------------------------------------------------------------
+Para crear un repositorio remoto sin ningún archivo en GitHub y subir (push) la información de nuestro repositorio local:
+
+1º: New repository - ponerle nombre, escoger público/privado (de pago) y no configurar iniciar con README, ni fichero .gitignore, ni añadir licencia.
+
+2º: hacemos el push de nuestro repositorio local a GitHub (no se suben lo Tags):
+git remote add origin https://github.com/SusanaMG/udemy-heroes.git
+git push -u origin master
+
+3º: metemos las credenciales de usuario y contraseña de GitHub.
+4º: comprobamos en el navegador los cambios.
+------------------------------------------------------------------------------
+Para hacer push de todos los Tags de nuestro repositorio local:
+git push --tags
+------------------------------------------------------------------------------
+Para hacer pull de los últimos cambios en el repositorio de GitHub:
+
+1º: hacemos nuevos cambios en el repositorio remoto y los guardamos haciendo un commit a través del interfaz web.
+
+2º: en nuestra máquina, en el repositorio local, comprobamos que esas modificaciones no están incluidas. 
+
+3º: hacemos el pull desde el repositorio remoto de GitHub hasta nuestro repositorio local:
+git pull origin master
+(si ya tenemos por defecto al haber usado -u se usa: git pull)
+------------------------------------------------------------------------------
+Para clonar un repositorio remoto completo con toda su historia en una máquina local:
+
+1º: desde el interfaz web de GitHub, desde la página del repositorio, pinchamos el botón "Clone or download" y obtenemos la ULR del repositorio.
+
+2º: desde consola de git, desde el directorio donde se quiere situar el proyecto, clonamos el repositorio (2 opciones):
+** CON EL MISMO NOMBRE QUE EL REPOSITORIO REMOTO:
+git clone URLdelRepositorio
+** CON EL DISTINTO NOMBRE AL DEL REPOSITORIO REMOTO:
+git clone URLdelRepositorio nombreNuevo
+
+Ejemplos: 
+git clone https://github.com/SusanaMG/udemy-heroes.git
+git clone https://github.com/SusanaMG/udemy-heroes.git demo-10
+
+3º: en la máquina local, aparece el repositorio. 
+------------------------------------------------------------------------------
+Para usar Git Fetch cuando se han hecho commits en el repositorio remoto y también cambios en el local pero no se ha hecho un pull antes de hacer el push:
+Voy a poner el ejemplo de cómo serían los pasos:
+
+1º: desde el interfaz web, en el repositorio remoto hacemos cambios y un commit.
+
+2º: en el repositorio local hacemos cambios. 
+
+3º: desde la consola, solo se detectan los cambios del local.
+git s
+
+4º: hacemos el commit en el repositorio local. 
+git commit -am "Mensaje"
+
+5º: vemos cómo se encuentra el repositorio y nos indica que hagamos un push porque estamos con 1 commit por encima del repositorio remoto.
+git status
+
+6º: al intentar hacer el push da fallo porque el remoto contiene trabajo que no se ha actualizado en local y nos indica que hagamos un git pull pero si no queremos el merge automático que hace porque no sabemos cuáles son los cambios que se han hecho, es mejor hacer un fetch.
+
+7º: hacemos el git fetch para actualizar localmente todos los cambios sucedidos en el repositorio remoto.
+git fetch
+
+8º: ahora hacemos pull que hace un merge. Sale una pantalla de editor de texto para poner un mensaje, en el caso de no haber conflicto. Si hay conflicto hay que solucionarlo manualmente. 
+git pull
+
+9º: por último, hacemos el push para subir los cambios.
+git push
+------------------------------------------------------------------------------
+******************************************************************************
+7. GitHub - Básico
+
+------------------------------------------------------------------------------
+*** TEORÍA: GitHub ***
+
+PESTAÑAS:
+
+* CODE: es el código del repositorio tal como se encuentra en este mismo momento. Combo de ramas, creación de pull request, clonar y descripción del proyecto (texto y toppics). El contenido del archivo README.md aparece en una sección de esa pestaña (usa lenguaje Markdown).
+* ISSUES: hacer preguntas a los dueños de los repositorios o hablar con ellos o contribuir. 
+* PULL REQUEST: personas externas sin derecho a escribir en el repositorio le 	solicitan al dueño que haga un cambio/corrección en particular, que ellos han codificado, y se hace mediante una aceptación de pull request.
+* PROJECTS: no ayuda a poder manejar un flujo de trabajo o work flow.
+* WIKI: crear una documentación rápidamente de cómo funciona el repositorio o compartir información necesaria con otras personas. 
+* SETTINGS: se puede cambiar el nombre del repositorio, activar y desactivar opciones de características, la configuración por defecto del botón de merge, interacciones limitadas, GitHub Pages y la Danger Zone (eliminación del repositorio, transferencia de propietario). 
+* INSIGHTS: son gráficas o información estadística para saber cómo está y se maneja el repositorio.
+
+
+BOTONES:
+
+* UNWATCH: notificaciones de cambios hechos por otros que no he visto.
+* FORK: crea una copia de un repositorio que se va a poder modificar.
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+*** TEORÍA: LENGUAJE MARKDOWN: ***
+https://www.markdowntutorial.com
+
+TITULOS:
+# h1
+
+## h2
+
+### h3
+
+NEGRITA:
+**texto**
+
+CURSIVA:
+*texto*
+ _texto_
+
+CITA:
+> Nombre del autor de la cita
+
+PÁRRAFOS:
+En un lugar de la Mancha··
+de cuyo nombre no quiero acordarme··
+(donde cada · es un espacio)
+
+LISTAS ORDENADAS:
+1. item
+
+ Texto a modo de párrafo (identado 1 espacio y con 1 línea por encima)
+2. item  
+ Texto a modo de párrafo (identado 1 espacio y sin línea por encima)
+3. item
+ 
+    * subitem
+  
+    * subitem
+  
+
+LISTAS DESORDENADAS:
+* item
+  
+  
+* item
+
+* item
+
+* item
+
+INCORPORAR IMAGEN:
+![Batman](https://images-na.ssl-images-amazon.com/images/I/41trnBjzshL.jpg)
+  
+
+LINK: 
+[Ir a la imagen](https://images-na.ssl-images-amazon.com/images/I/41trnBjzshL.jpg)
+
+http://en.wikipedia.org/wiki/Markdown#Example
+http://spec.commonmark.org/dingus/
+http://johnmacfarlane.net/babelmark2/faq.html
+http://idratherbewriting.com/2013/06/04/exploring-markdown-in-collaborative-authoring-to-publishing-workflows/
+https://www.markdownguide.org
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Para buscar archivos en GitHub:
+En la pestaña "Code", usar el botón "Find file".
+Una vez encontrado, se clica, se obtiene su path y su contenido.
+------------------------------------------------------------------------------
+Para ver mejor desde GitHub los cambios que se han hecho en un commit:
+En la pestaña "Code", entrar en un commit y poner la opción "Split" para separar la versión previa y la posterior al commit. 
+La otra opción es "Unified".
+------------------------------------------------------------------------------
+BOTONES: Raw, Blame, History, Edit and Delete:
+
+* Raw: para mostrar el fichero en texto plano y obtener una URL para ver el fichero desde un navegador (en repositorios públicos) 
+* Blame: para saber quién hizo qué cambio y colocarnos en algún punto de la historia del repositorio.
+* History: para saber en qué commits se tocó o se modificó ese archivo, en qué manera y colocarnos en algún punto de la historia del repositorio.
+** Si nos movemos a lo largo de la historia del repositorio, luego sólo tendremos que ir al botón "BRANCH" y elegir "master" para volver al punto actual del proyecto. 
+* Botón para abrir el fichero en GitHub Desktop.
+* Edit: para editar el fichero.
+* Delete: para borrar el fichero. Pide un commit para guardar los cambios.
+------------------------------------------------------------------------------
+Para crear nuevos archivos en GitHub:
+Crear archivo en una rama aparte,luego uniremos la rama a la rama master y bajaremos los cambios al repositorio local. 
+
+1º: crear un fichero y al hacer el commit, elegir la opción de crear una nueva rama y empezar un pull request. Darle un nombre y dar al botón "Propose new file".
+
+2º: se abre un pull request, se rellenan cajas de texto y características. Clicar el botón "Create pull request".
+
+3º: git compara las ramas para ver si hay conflictos o no en la unión. Se puede entrar en el commit y hacer comentarios/conversación por línea de código, se puede pedir aprobación, o pedir cambios. Una vez se han hecho o seguido los comentarios, elegir la opción (por ejemplo) "Create a merge commit" y ponerle un mensaje informativo y confirmar el merge. Borrar la rama secundaria ("Delete branch"). 
+
+4º: desde consola, en máquina local, hacemos un pull para introducir los cambios en el local:
+git pull
+(git pull origin master)
+------------------------------------------------------------------------------
+Para crear un nuevo archivo directamente en master en GitHub:
+
+1º: crear un fichero y al hacer el commit, elegir la opción de hacer commit en la rama master. 
+
+2º: desde consola, en máquina local, hacemos un pull para introducir los cambios en el local:
+git pull
+(si no lo tenemos por defecto: git pull origin master)
+------------------------------------------------------------------------------
+Para renombrar, borrar en GitHub y sincronizar el repositorio local:
+
+1º: editamos un fichero desde GitHub (contenido o nombre) o lo borramos y al hacer el commit, elegir la opción de hacer commit en la rama master. 
+
+2º: desde consola, en máquina local, hacemos un fetch para actualizar las referencias locales contra lo que está en el remoto:
+git fetch
+
+3º: comprobamos el estado y si ha habido cambios, nos indicará el número de commits que está atrás nuestra rama master respecto al remoto:
+git status
+
+4º: hacemos un pull para introducir los cambios en el local:
+git pull
+(si no lo tenemos por defecto: git pull origin master)
+
+**Para casos de emergencia. Es mejor no hacer cambios desde GitHub
+------------------------------------------------------------------------------
+Para poner comentarios en los commits en GitHub:
+
+Al entrar dentro de un commit:
+En cada línea de código se puede hacer un comentario clicleando el "+" que aparece al colocarnos encima.
+También se puede hacer un comentario al commit en general. Soporta markdown.
+
+Desde "HISTORIA": se ve al lado de los commits el número de comentarios que tiene cada uno de ellos. 
+
+Con el botón "VIEW" vemos cómo quedó el archivo en el momento del commit. 
+------------------------------------------------------------------------------
+******************************************************************************
+8. GitHub - avanzado
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+9. GitHub Issues, MileStones y Colaboradores
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+10. Wikis, Proyectos y GitHub Pages
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+11. Organizaciones y Equipos
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+12. Ajustes y Seguridad
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+13. Gist
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+******************************************************************************
+14. Fin del curso
+
+------------------------------------------------------------------------------
+
+
+
+
+
