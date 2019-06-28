@@ -1018,38 +1018,80 @@ En GitHub desde la pestaña de Tags, seleccionamos uno de ellos y los editamos co
 9. GitHub Issues, MileStones y Colaboradores
 
 ------------------------------------------------------------------------------
+*** TEORÍA: Issues, MileStones ***
 
+* Issues: para resolver problemas y para coordinar el trabajo con otros compañeros.
+Desde Settings, se pueden activar o desactivar (no se pierden, solo se quita el acceso).
 
+* Milestones: útiles para resolver todos los problemas antes de un lanzamiento, reunir todo el trabajo y los puentos críticos necesarios a terminar antes de llegar a una meta.
 ------------------------------------------------------------------------------
+GitHub Issues:
 
+Se puede notificar a los colaboradores del proyecto un requerimiento o algo que falta en el proyecto.
 
+Desde la pestaña de Issues, se crea un issue con el botón "New Issue", se le pone un título bien descriptivo y la descripción en la caja de texto y se envía con  "Submit new issue". El issue queda abierto, en repositorio público, para que los colaboradores y otras personas puedan hacer comentarios (en repositorio privado solo los colaboradores). Hay una notificación por cada cambio y se puede anular la suscripción. 
+
+En la pestaña de los issues, aparecen filtrados por issues abiertos. Si se quita el filtro y se buscan todos, aparecen los issues, los pull request y otros comentarios. 
+
+Para poder distinguir, localizar bien y saber a qué hace referencia un issue es necesario asociarlo a labels y milestones.
 ------------------------------------------------------------------------------
+Cerrar un issue: 
 
+Hay varias formas:
 
+* Para cerrar un issue, entramos en él y pulsamos "Close issue". De este modo, sigue quedando abierto a comentarios. Si se quiere cerrar y que el público general no pueda hacer comentarios y sólo los hagan los colaboradores, se marca "Lock conversation". Los colaboradores pueden volver a abrir la conversación.
+
+* Con un issue abierto (o reabierto), se hacen los cambios requeridos. En el mensaje del commit se puede indexar el issue para que se cierre al hacer el commit. En el issue cerrado aparece la referencia del commit. Hay varias opciones por igual:
+git commit -am "Mensaje fixes #numDelIssue"
+git commit -am "Mensaje closes #numDelIssue"
+git commit -am "Mensaje resolves #numDelIssue"
+(#numDelIssue: sirve para hacer un seguimiento)
 ------------------------------------------------------------------------------
+Labels o Etiquetas. Administrar los issues:
 
+Desde la pestaña Issues, con el botón Labels, obtenemos las etiquetas que tenemos creadas. Son personalizadas, se pueden crear y borrar. 
 
+Se puede asignar una o varias etiquetas a un issue tanto abierto como cerrado desde el menú de la derecha, desde "Labels".
+
+A la hora de buscar issues, podemos usar los labels como filtros.
 ------------------------------------------------------------------------------
+Milestone:
 
+Un milestone es un grupo de issues, características o una fecha dentro de un periodo de tiempo. 
 
+En un proyecto de desarrollo se pueden utilizar, por ejemplo, de las siguientes formas:
+* Beta Launch - Errores que necesitamos arreglar antes del lanzamiento.
+* Octubre - Issues que nos gustaría que funcionaran en octubre y es una excelente forma de mantener el enfoque. 
+* Re-diseño - Issues relacionadas al diseño del proyecto, es una excelente forma para mantener las ideas y trabajos enfocados en el mismo punto. 
+
+http://guides.github.com/features/issues/
+
+Un milestone se puede asignar a un issue desde el menú de la derecha, desde "Milestone". Si no está creado previamente, se puede crear en el momento de la asignación. 
+
+Desde la pestaña Issues, con el botón Milestones, obtenemos los milestones que tenemos creados. Cada uno presentará el porcentaje según esté completado mediante una barra de progreso.
 ------------------------------------------------------------------------------
+Agregar colaboradores a un repositorio:
 
+Cuando se agrega a un colaborador a un repositorio, va a tener control total del mismo. 
 
+Desde la pestaña "Settings", desde el menú de la izquierda "Collaborators" podemos buscar el colaborador, que recibirá un correo electrónico con la invitación a trabajar en el repositorio.
+
+Cuidado si se borra el colaborador con la "X" porque no pide confirmación. Si borramos un colaborador, los cambios que ha realizado no se borran.
 ------------------------------------------------------------------------------
+Asociar commits a issues:
 
+Para asociar un commit a un issue particular: desde un commit que hacemos o uno que buscamos, en los comentarios, se puede asociar a un issue a través de su código #numDelIssue. También un issue se puede asociar a otro issue y desde unos al otro se puede ver el status que tiene el otro.  
 
-------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------
-
-
+Una vez asociados, desde los comentarios del issue también encontramos la referencia al commit.
 ------------------------------------------------------------------------------
 ******************************************************************************
 10. Wikis, Proyectos y GitHub Pages
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
 
 ------------------------------------------------------------------------------
 
