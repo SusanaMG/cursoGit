@@ -33,6 +33,9 @@ ls -al
 Creación de alias:
 git config --global alias.lg "log --oneline --decorate --all --graph"
 git config --global alias.s "status -s -b"
+
+Para borrar:
+git config --global --unset-all user.name
 ------------------------------------------------------------------------------
 Para crear el repositorio local y crear carpeta .git (oculta, no tocarla) en el repositorio:
 git init
@@ -386,7 +389,6 @@ git stash clear
 
 El rebase básico sirve para actualizar una rama secundaria cuando los commits de la rama master sean necesarios para la rama, creando un área temporal donde se mueven los commits de la secundaria, luego se mueve el puntero de la rama secundaria hacia el último commit de la master y por último, se mueven por orden los commits del área temporal a la rama secundaria. 
 
-
 El rebase interactivo sirve para ordenar commits, para corregir mensajes de los commits, para unir commits y para separar commits. Se trata de mover a un área temporal el número de commits que nos interesan por orden y luego, los va a devolver igual como fueron ejecutados en la línea de tiempo.
 ------------------------------------------------------------------------------
 Para usar la funcionalidad Rebase básica y actualizar el punto donde se creó una rama:
@@ -647,7 +649,6 @@ PESTAÑAS:
 * SETTINGS: se puede cambiar el nombre del repositorio, activar y desactivar opciones de características, la configuración por defecto del botón de merge, interacciones limitadas, GitHub Pages y la Danger Zone (eliminación del repositorio, transferencia de propietario). 
 * INSIGHTS: son gráficas o información estadística para saber cómo está y se maneja el repositorio.
 
-
 BOTONES:
 
 * UNWATCH: notificaciones de cambios hechos por otros que no he visto.
@@ -659,9 +660,7 @@ https://www.markdowntutorial.com
 
 TITULOS:
 # h1
-
 ## h2
-
 ### h3
 
 NEGRITA:
@@ -686,25 +685,17 @@ LISTAS ORDENADAS:
 2. item  
  Texto a modo de párrafo (identado 1 espacio y sin línea por encima)
 3. item
- 
+    * subitem
     * subitem
   
-    * subitem
-  
-
 LISTAS DESORDENADAS:
 * item
-  
-  
+ * item
 * item
-
-* item
-
 * item
 
 INCORPORAR IMAGEN:
 ![Batman](https://images-na.ssl-images-amazon.com/images/I/41trnBjzshL.jpg)
-  
 
 LINK: 
 [Ir a la imagen](https://images-na.ssl-images-amazon.com/images/I/41trnBjzshL.jpg)
@@ -785,11 +776,273 @@ Con el botón "VIEW" vemos cómo quedó el archivo en el momento del commit.
 8. GitHub - avanzado
 
 ------------------------------------------------------------------------------
+*** TEORÍA: Fork, Clone y Colaboraciones: ***
 
+* Git clone: clonar nuestro repositorio remoto en una máquina local. Ya sea nuestro o seamos colaboradores podemos hacer commits y push.
 
+* En el caso de no ser colaborador de un repositorio público en GitHub: se puede hacer el git clone a una máquina local. En la máquina local podremos hacer commits locales pero no se va a poder hacer push a GitHub.
+
+* Para colaborar con un repositorio del que no somos propietarios ni colaborador: hacemos un fork, que es tomar el repositorio original y clonarlo a un lugar en el que nosotros tendremos total acceso y podremos hacer push, clone y commits. Mediante un pull request les mostramos a los propietarios los cambios. 
+
+* Pull request: enviar los cambios a las personas que tienen total acceso a un repositorio. Pueden ser rechazados o aceptados. Si se aceptan los cambios, los propietarios los pueden añadir a su reposiorio.
+------------------------------------------------------------------------------
+Para clonar un repositorio remoto completo con toda su historia en una máquina local:
+
+1º: desde el interfaz web de GitHub, desde la página del repositorio, pinchamos el botón "Clone or download" y obtenemos la URL del repositorio.
+
+2º: desde consola de git, desde el directorio donde se quiere situar el proyecto, clonamos el repositorio (2 opciones):
+** CON EL MISMO NOMBRE QUE EL REPOSITORIO REMOTO:
+git clone URLdelRepositorio
+** CON EL DISTINTO NOMBRE AL DEL REPOSITORIO REMOTO:
+git clone URLdelRepositorio nombreNuevo
+
+Ejemplos: 
+git clone https://github.com/SusanaMG/udemy-heroes.git
+git clone https://github.com/SusanaMG/udemy-heroes.git demo-10
+
+3º: en la máquina local, aparece el repositorio. 
+------------------------------------------------------------------------------
+Para crear un fork:
+
+Desde un repositorio ajeno, damos al botón "FORK" y se crea una copia del repositorio en la que tendremos total acceso y estará entre nuestros repositorios, marcado con el icono de fork. 
+
+Posteriormente, si queremos, se puede crear un clon de ese repositorio remoto en nuestra máquina local. 
+------------------------------------------------------------------------------
+Para hacer Pull Request:
+
+1º: una vez hechos los cambios en el repositorio fork clonado desde local, comprobamos que esté bien enlazado con el remoto y subimos los cambios al remoto:
+git remote -v
+git s
+git add .
+git commit -m "Descripción de cambios realizados"
+git push
+
+2º: desde el interfaz web de GitHub, desde el repositorio que es el fork, pulsamos el botón "New pull request". Desde la siguiente pantalla revisamos los cambios y pulsamos el botón "Create pull request". Ponemos un mensaje y una breve descripción y pulsamos otro botón "Create pull request". Aparece el repositorio original. 
+
+3º: el propietario del repositorio original revisa los cambios, unos serán aceptados y otros no. A través de comentarios habla con el autor del pull request (dando a "Submit review") que tendrá que hacer los cambios oportunos. 
+Por ejemplo se revierten los cambios de un commit, se va al anterior y se hace commit.
+Ejemplo: 
+git checkout refCommit fichero.ext
+git commit -m "Revertimos los cambios en el fichero"
+git push
+
+4º: los cambios realizados por el autor se recargan en GitHub y no hace falta hacer otro pull request. 
+
+5º: el propietario del repositorio original revisa los cambios, los aprueba y hace un "Squash and merge" (si hay algún commit qu en le interesase).
+
+Tanto el autor del repositorio original como el autor del pull request puede cerrar el pull request. 
+------------------------------------------------------------------------------
+*** TEORÍA: actualizar el Fork ***
+
+Cuando se hace un fork de un repositorio principal upstream y luego se hace un clon a máquina local. Se hacen cambios en local que se suben a su remoto con push y el upstream se actualiza mediante pull request. 
+
+Cuando esto se hace por varios usuarios y unos necesitan los cambios que realizan otros y se consigue agregando un nuevo remoto y actualizando nuestro fork mediante un pull desde el repositorio upstream al repositorio en máquina local:
+
+1º: añadimos el repositorio original:
+git remote add upstream URLRepositorioOriginal
+(convención: upstream = lugar del que podemos obtener los cambios pero no se puede hacer push)
+
+2º: comprobamos los repositorios remotos:
+git remote -v 
+(aparece el repoitorio origin y el repositorio upstream)
+
+3º: hacemos un pull de la rama del repositorio upstream que nos interese:
+git pull upstream master
+(git pull repositorioOriginal nomreRamaADescargar)
+
+4º: ponemos un mensaje al commit para el merge.
+
+5º: actualizamos el repositorio fork:
+git push 
+------------------------------------------------------------------------------
+*** TEORÍA: flujos de trabajo ***
+
+Los desarrolladores trabajan en ramas por funcionalidades (Feature branch).
+
+Para revisar el trabajo de otros desarrolladores:
+1º: actualizarnos:
+git fetch
+2º: para revisar todas las ramas que se encuentran en el repositorio:
+git branch -a
+3º: para pasarnos a la rama de otra persona:
+git checkout nombreRama
+
+Para que cualquier compañero pueda realizar el push a GitHub para que el repositorio esté actualizado:
+1º: pasamos a la rama master:
+git checkout master
+2º: unimos la rama que nos interesa al master y ahí se resuelven los conflictos, si los hubiese:
+git merge ramaAUnir
+3º: para actualizar nuestro repositorio en GitHub
+git push
+
+Para que el equipo de trabajo se entere de los cambios y se discutan antes de unirlos a la rama master, se hace de otro modo:
+1º: pasamos a la rama que queremos unir. Con esto se sube a GitHub la rama con todos los cambios:
+git push origin nombreRamaSecundaria
+2º: hacemos un pull request para que todos los compañeros que trabajan en el repositorio se enteren y comenten los cambios. 
+------------------------------------------------------------------------------
+Feature Branch: flujo de trabajo mediante pull request
+
+1º: en local tras hacer los cambios, creamos una nueva rama para realizar las modificaciones, nos movemos a ella y agregamos los cambios:
+git checkout -b 'nombreRamaSecundaria'
+git add .
+git commit -m "Descripción de los cambios"
+
+2º: subimos la rama al GitHub un vez terminado el trabajo para que los compañeros la revisen:
+git push origin ramaSecundaria
+
+3º: en GitHub, desde la pestaña "Pull request", creamos uno nuevo con el botón "New pull request", seleccionamos la base a la cual se quiere unir la rama y en el otro selector, la rama a unir. Se muestran los cambios.
+
+4º: si todo está bien, pulsamos "Create pull request", le ponemos un título y un comentario y pulsamos "Create pull request".
+
+5º: en este momento el equipo de trabajo es notificado y puede revisar los cambios. Si todo está bien, se unen los cambios con una de las opciones, por ejemplo, "Merge pull request" y su confirmación "Confirm merge". Se borra la rama con el botón "Delete branch".
+
+6º: desde consola en local, salimos de la rama secundaria y la borramos
+git checkout master
+git branch -d ramaSecundaria
+
+Sale el mensaje: 
+error: The branch 'rama-villanos' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D rama-villanos'.
+
+git branch -D ramaSecundaria
+git branch -v
+
+7º: actualizamos la rama master para tener todos los cambios aceptados en la rama master
+git pull
+
+8º: Borramos la rama en remoto:
+git push origin :ramaSecundariaA
+------------------------------------------------------------------------------
+Feature Branch: revisando el trabajo de otros compañeros
+Lo revisamos en nuestra máquina local.
+
+1º: Un compañero sube los cambios a una nueva rama de GitHub (llamada ramaSecundaria). Crea un pull request. 
+
+2º: en nuestro local, obtenemos la rama nueva ramaSecundaria.
+git pull
+Si no funciona es porque pull está en modo simple y hay que hacer:
+git pull --all
+
+3º: comprobamos las ramas locales y solo tenemos nuestra master. Actualizamos ramas y ya vemos la nueva rama en remoto.  
+git branch
+git branch -a
+
+4º: cambiamos a la rama secundaria.
+git checkout ramaSecundaria
+
+5º: revisamos cambios y si queremos se modifican. Le subimos los cambios al compañero.
+En el caso de hacer cambios hay que meterlos en el stage y hacer commit:
+git  commit -am "Descripción de los cambios"
+
+6º: subimos los cambios a la rama secundaria de GitHub:
+git push origin ramaSecundaria
+
+7º: metemos los cambios en la rama master:
+Hacemos el pull request y lo aceptamos con Merge. 
+
+8º: desde consola eliminamos las ramas secundarias que nos puedan haber quedado:
+git branch -a
+
+-Borramos la rama secundaria en local: 
+git checkout master
+git branch -D rama Secundaria
+
+Obtenemos los cambios localmente: git pull
+
+-Borramos la rama en remoto:
+git push origin :ramaSecundariaA
+
+-Borramos la rama en remoto cuando en remoto ya no existe:
+git remote prune origin
+------------------------------------------------------------------------------
+Crear Tags y subirlos a GitHub:
+
+Se debe hacer un Tag cada vez que se hace un push a producción.
+
+Para crear un tag en el punto en el que se está actualmente del proyecto (opción recomendada) (HEAD):
+git tag -a nombreTag -m "mensaje"
+(-a = anotación)
+Ejemplo: git tag -a v1.0.0 -m "Versión 1 - Lista para producción"
+
+Para crear un tag en un commit específico:
+git tag -a nombreTag referenciaCommit -m "mensaje" 
+Ejemplo: git tag -a v0.0.1 d768f0e -m "Versión alfa - No usar"
+
+Para crear un tag con un mensaje más elaborado:
+git tag -a nombreTag referenciaCommit 
+Se abre el editor de texto para poner un mensaje más largo. 
+Ejemplo: git tag -a v0.1.1 aa7c91f
+
+Para ver los tags que se tienen:
+git tag
+
+Para ver el mensaje e información de un tag:
+git show nombreTag 
+
+Para borrar un tag:
+git tag -d nombreTag
+
+Para hacer push de todos los Tags de nuestro repositorio local a GitHub:
+git push --tags
+
+El nombre de las versiones indica:
+v1.0.0
+Mayor.menor.parche
+Semantic Versioning 2.0.0: https://semver.org/
+------------------------------------------------------------------------------
+*** TEORÍA: rama de producción *** 
+
+	  v1.1.0				     v1.1.0
+          *------                                   *-*-*-*-*-*-      
+         /           				   /	
+--------*---*---*---*---------------- ==> --------*---*---*---*----------------
+	v1.0.0			v2.0.0 		v1.0.0
+
+* Cuando le damos soporte prolongado a una versión en particular o cuando nos pagan para mantener una versión en particular:
+* Cuando hacemos arreglos en caliente y cambios urgentes.
+* Cuando subimos a producción, pero constantemente tenemos que estar dando soporte y arreglos cada vez que hay un nuevo despliegue de la aplicación. 
+
+Ayuda mucho a que el equipo de soporte pueda dar feed-back al equipo de desarrollo de lo que está pasando para que después los desarrolladores puedan aplicar las correcciones . 
+------------------------------------------------------------------------------
+Releases. Versiones de producción completas
+
+Los tags y las releases no son lo mismo.
+
+Releases. Beneficios ante los Tags:
+* Una release permite compartir archivos binarios sin necesidad de que Git o GitHub los revise. 
+* Podemos proveer una información adicional sobre el uso de esa Release. 
+
+En GitHub desde la pestaña de Tags, seleccionamos uno de ellos y los editamos con el botón "Edit tag". Le ponemos un título, los comentarios con información adicional de cómo funciona, de las instrucciones de instalación y se pueden adjuntar archivos extra e imágenes. Una vez preparado se puede marcar como "pre-release" (versión no lista para producción) o dejarla como definitiva. En el caso de ser pre-release, en el futuro se puede editar y marcar como release final. 
 ------------------------------------------------------------------------------
 ******************************************************************************
 9. GitHub Issues, MileStones y Colaboradores
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
 
 ------------------------------------------------------------------------------
 
