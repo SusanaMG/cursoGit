@@ -17,7 +17,7 @@ git config core.autocrlf true
 
 ------------------------------------------------------------------------------
 Para consultar la configuración:
-git config --global -l0
+git config --global -l
 Para consultar la configuración y editarla:
 git config --global -e
 ------------------------------------------------------------------------------
@@ -576,6 +576,9 @@ git push -u origin master
 
 3º: metemos las credenciales de usuario y contraseña de GitHub.
 4º: comprobamos en el navegador los cambios.
+------------------------------------------------------------------------------
+Para actualizar el push tras el cambio de mensaje de un commit:
+git push -f
 ------------------------------------------------------------------------------
 Para hacer push de todos los Tags de nuestro repositorio local:
 git push --tags
@@ -1162,16 +1165,6 @@ En la pestaña "Insights", encontramos "Community" donde nos dan recomendaciones 
 * Pulse: nos sirve para saber cómo va el proyecto. Los datos que aparecen no son absolutos, si no relativos a un periodo de tiempo (1 mes, 1 semana, 3 días o 24 horas). Da información de pull request unidos o pendientes de unir al master, issues cerrados y abiertos, personas que hacen los commits, información sobre los releases, etc. 
 
 * Graphs: para obtener información más detallada. Mucha información relevante para  un administrador de proyecto. Actualmente, los obtenemos desde el menú lateral que sale en la sección Insights. Contributors: análisis por usuario, función y período de tiempo. Traffic: para saber qué personas han hecho clones, las actividades, los visitantes, etc. Commits: en qué punto del tiempo y en qué día de la semana se realizan más commits en nuestro proyecto. Code frequency: es una relación entre las adiciones contra las eliminaciones de código. Punch card: indica en qué momentos del día hay más actividad del personal que trabaja en el proyecto. Network: dar seguimiento de forma gráfica del movimiento del repositorio, ramas y las separaciones creadas. Forks: observar qué personas han hecho fork en el repositorio. 
-------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------
-
-
-------------------------------------------------------------------------------
-
-
-
 ------------------------------------------------------------------------------
 ******************************************************************************
 11. Organizaciones y Equipos
