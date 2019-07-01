@@ -1170,8 +1170,59 @@ En la pestaña "Insights", encontramos "Community" donde nos dan recomendaciones 
 11. Organizaciones y Equipos
 
 ------------------------------------------------------------------------------
+*** TEORÍA: Organización ***
 
+Organización: puede ser una empresa o no. Una persona puede estar en múltiples organizaciones, una persona puede ser dueña de múltiples organizaciones, una organización puede ser un grupo de personas. Una organización nos ayuda cuando creemos un proyecto a que automáticamente asginemos personas de nuestro equipo de trabajo y llevar un control organizados del proyecto. 
 
+Para crear una organización:
+1º: en el signo "+", elegimos "New organization", le ponemos un nombre único (porque tendrá una URL única), se rellena el email de facturación, el tipo de plan y si la organización pertence a una cuenta personal o a una empresa o institución. 
+
+2º: invitamos a miembros.
+
+3º: rellenamos o no información sobre el proyecto a GitHub. 
+------------------------------------------------------------------------------
+Transfiriendo el dominio de un repositorio a una organización:
+
+Se puede cambiar entre el usuario y el usuario dueño de la organización. Este último tiene presencia pública, settings independientes. Para cambiar entre uno y otro: icono de GitHub, desplegable de usuarios, seleccionamos el usuario de la organización y luego clicamos "View organization". Volvemos a la página de la organización con el usuario dueño. 
+
+Para transferir un repositorio a una organización:
+1º: desde el repositorio, "Settings" - "Danger Zone", elegimos la opción "Transfer ownership". Confirmamos el nombre del repositorio y ponemos el nombre de la organización a la cual se quiere transferir. Se requiere de la contraseña del usuario. 
+
+2º: el repositorio aparece en el dominio de la organización y nuestro usuario lo pierde. 
+
+3º: si no se quiere perder el repositorio en el usuario, se puede hacer un fork. 
+------------------------------------------------------------------------------
+Teams - Equipos de trabajo:
+
+Los equipos pueden estar compuestos por distintos tipos de miembros. El nombre del equipo tiene que ser único en la organización.  
+
+Para crear un equipo:
+1º: desde el repositorio de la organización, desde la pestaña "Teams", "Create a new team" y ponerle un nombre único, una descripción, escoger si es visible o secreto y darle al botón "Create team". 
+
+2º: miembros: por defecto, la persona que crea el equipo queda asignada como administradora del mismo. Se añaden más miembros con el botón "Add a member" y se envía una invitación; no es obligatorio que los miembros pertenezcan al grupo. 
+
+3º: se pueden crear subequipos dentro de un equipo. 
+
+Ejemplos de equipos: desarrolladores, desarrolladores-JR, soporte técnico, testers...
+------------------------------------------------------------------------------
+Repositorios y privilegios a los equipos de nuestra organización:
+
+Para asignar el nivel de acceso que tienen los equipos:
+1º: desde el equipo, se asigna el repositorio en el que el equipo puede trabajar desde la pestaña "Repositories" con el botón "Add repository". Solo aparecen los repositorios de la oganización.
+
+2º: por defecto se pone el privilegio de "Read". Se configura en "Settings". Los privilegios son "Read" (leer, clonar, forks y pull request) , "Write" (leer, clonar y escribir con push directamente) y "Admin" (leer, clonar, push y añadir colaboradores).
+------------------------------------------------------------------------------
+Más información sobre los miembros de la organización:
+
+Desde la organización en la pestaña "People" se puede ver un listado de toda la gente que hay en la organización y la configuración que tienen.
+
+2FA: two factor authentication 
+Private/public: el usuario "private" es visible solo a los miembros de la organización. No lo puede ver el público.
+Member/owner: los miembros están sujetos a lo que el owner o los owners pueden hacer. 
+Número de equipos a los que pertenece esa persona. 
+
+Desde el icono de engranaje:
+Manage (o dando al nombre del usuario): se puede cambiar el rol, se le puede eliminar de la organización, se le puede convertir en un colaborador externo. Convertir un usuario a un colaborador externo se elimina de la organización y de todos los equipos pero va a permanecer y tener acceso en todos los repositorios en los que trabajaba. 
 ------------------------------------------------------------------------------
 ******************************************************************************
 12. Ajustes y Seguridad
