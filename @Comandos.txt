@@ -17,7 +17,7 @@ git config core.autocrlf true
 
 ------------------------------------------------------------------------------
 Para consultar la configuración:
-git config --global -l
+git config --global -l0
 Para consultar la configuración y editarla:
 git config --global -e
 ------------------------------------------------------------------------------
@@ -1088,12 +1088,88 @@ Una vez asociados, desde los comentarios del issue también encontramos la refere
 10. Wikis, Proyectos y GitHub Pages
 
 ------------------------------------------------------------------------------
+*** TEORÍA: Wikis, Proyectos y GitHub Pages ***
 
+* Wikis: cualquier persona o solo colaboradores pueden contribuir a crear información sobre cómo funciona o para qué sirve el repositorio. 
 
+* Proyectos: es un dashboard o pizarra para marcar las ideas o las taras. Es útil para los administradores de proyecto. 
+
+* GitHub Pages: sitios web donde subir contenido HTML, CSS y JS. Se pueden crear mediante markdown o mediante HTML, etc.
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Wiki:
+
+Es un lugar donde crear las páginas con mucha información sobre el repositorio con la finalidad de ayudar al usuario o otro compañero de trabajo a entender el proyecto. 
+
+La página que se quiere mostrar por defecto tiene que llamarse "Home". Se configura el aspecto de la pantalla usando markdown. Se crean url independientes cada las páginas (para compartir o enviar el link). Las páginas creadas van apareciendo en un menú "Pages".
+
+Las wikis son públicas, si se quiere desactivar la característica se hace desde "Settings" - "Features" - "Wikis", desde donde se puede dejar la wiki restringida a solo colaboradores.
+------------------------------------------------------------------------------
+Agregar referencias entre páginas en la wiki:
+
+Desde la edición de una página, hacemos la referencia a una página, escribiendo una palabra, marcándola, dando al icono "Link" y escribiendo la palabra y la URL va a ser el nombre de la página que queremos referenciar. 
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+Proyectos:
+
+Se habilitan desde "Settings" - "Features - "Projects". Luego aparecen en la pestaña "Projects". Valen para organizar proyectos o el trabajo de usuarios.
+
+Para crear un proyecto: botón "Create a project", ponemos un título, una descripción y lo salvamos con "Create a project" (o "Save project"). Se pueden añadir columnas en las cuales añadir temas que se pueden ver constantemente (ejemplos: "Por hacer", "Issues pendientes urgentes", "En progreso", "Terminados"). Se pueden añadir notas con markdown en las columnas.
+
+Para rellenar el proyecto, desde "Add cards", se pueden ir arrastranto tarjetas para añadir al proyecto. 
+
+Se pueden crear "listas de tareas por hacer" dentro de las notas. Se crea una nota, en el menú de tres puntos está la opción "Convert to issue". Se puede desarrollar aún más desde Issues, desde la caja de texto de los comentarios con el icono "Add a task list", que crea items con un cuadro de check. 
+------------------------------------------------------------------------------
+------------------------------------------------------------------------------
+GitHub Pages para tu usuario u Organización:
+
+1º: Creamos un nuevo repositorio y le ponemos como nombre nuestro nombre de usuario seguido de ".github.io" (nombreusuario.github.io). Solo se puede tener un repositorio con ese nombre, será el repositorio principal.
+
+2º: "Settings" - "GitHub Pages" - "Choose a theme": se escoge un tema y se carga la pantalla básica del archivo index.md, que será el archivo que se cargue por defecto cuando se cargue la url. Se hace el commit ("Agregando el archivo index.md".
+
+3º: desde el código aparecen 2 archivos: la configuración del tema en _config.yml y el fichero index.md
+
+4º: para saber que todo está funcionando se ve en "Settings" - "GitHub Pages" y aparece "Your site is published at https://nombreusuario.github.io/". Puede tardar unos minutos. 
+
+5º: se pueden realizar cambios en index.md, que se guardan a través de commits. Puede tardar unos minutos. 
+------------------------------------------------------------------------------
+GitHub Pages - Trabajando con unos archivos HTML:
+
+1º: en nuestro repositorio local, clonamos el repositorio a través de la URL. 
+
+2º: abrimos el repositorio en el editor de código. Renombramos el fichero _config.yml por _config.back.yml y el fichero index.md por index.back.md para no perderlos. Hacemos un commit para hacer el backup de estos cambios.
+
+3º: creamos un nuevo fichero en el editor llamado index.html. Escribimos "HTML + TAB" y se crea un esqueleto de html. Rellenamos con código html. Añadimos bootstrap desde https://getbootstrap.com desde donde obtenemos una línea de instalación rapida (ejemplo:     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">).
+También se puede incluir un archivo CSS para darle estilo. 
+Guardamos los cambios y hacemos un commit (estamos en local).
+
+4º: subimos los cambios a GitHub y recargando la página del repositorio, podemos ver la nueva página creada en HTML, CSS y Bootstrap.
+------------------------------------------------------------------------------
+GitHub Pages - Para tu proyecto o repositorio:
+
+El proceso de creación de una página para un repositorio concreto es muy parecido a la creación del repositorio principal. 
+
+1º: desde el repositorio, nos vamos a "Settings" - "GitHub Pages" y vemos que no se habilita la opción "master branch/docs folder". Creamos ese directorio "docs" en el repositorio local, en él creamos el fichero index.html, rellenamos con código HTML y subimos los cambios a GitHub. 
+
+2º: desde el repositorio, volvemos a "Settings" - "GitHub Pages" y vemos que sí se habilita la opción "master branch/docs folder". La elegimos y salvamos. Esperamos a que se cree la página con url: https://usuario.github.io/nombrerepositorio/
+
+Hay otras formas de hacerlo, por ejemplo en el caso de que en nuestro repositorio tengamos una carpeta docs que no queremos usar para la página web. En ese caso, desde "Code", nos creamos una rama llamada "gh-pages" y desde "Settings" - "GitHub Pages" elegimos esa rama para el contenido de la web del repositorio.
+------------------------------------------------------------------------------
+Pulse y Graphs:
+
+En la pestaña "Insights", encontramos "Community" donde nos dan recomendaciones y buenas prácticas de cómo debería estar el proyecto.
+
+* Pulse: nos sirve para saber cómo va el proyecto. Los datos que aparecen no son absolutos, si no relativos a un periodo de tiempo (1 mes, 1 semana, 3 días o 24 horas). Da información de pull request unidos o pendientes de unir al master, issues cerrados y abiertos, personas que hacen los commits, información sobre los releases, etc. 
+
+* Graphs: para obtener información más detallada. Mucha información relevante para  un administrador de proyecto. Actualmente, los obtenemos desde el menú lateral que sale en la sección Insights. Contributors: análisis por usuario, función y período de tiempo. Traffic: para saber qué personas han hecho clones, las actividades, los visitantes, etc. Commits: en qué punto del tiempo y en qué día de la semana se realizan más commits en nuestro proyecto. Code frequency: es una relación entre las adiciones contra las eliminaciones de código. Punch card: indica en qué momentos del día hay más actividad del personal que trabaja en el proyecto. Network: dar seguimiento de forma gráfica del movimiento del repositorio, ramas y las separaciones creadas. Forks: observar qué personas han hecho fork en el repositorio. 
 ------------------------------------------------------------------------------
 
 
 ------------------------------------------------------------------------------
+
+
+------------------------------------------------------------------------------
+
 
 
 ------------------------------------------------------------------------------
