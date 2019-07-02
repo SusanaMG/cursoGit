@@ -539,8 +539,8 @@ Para revisar todos los repositorios remotos agregados a un repositorio local:
 git remote -v
 
 Mensaje:
-origin  https://github.com/SusanaMG/udemy-heroes.git (fetch)
-origin  https://github.com/SusanaMG/udemy-heroes.git (push)
+origin  https://github.com/nombreUsuario/udemy-heroes.git (fetch)
+origin  https://github.com/nombreUsuario/udemy-heroes.git (push)
 ------------------------------------------------------------------------------
 Para agregar un origen remoto a nuestro repositorio local:
 
@@ -552,7 +552,7 @@ add = agregar nuevo repositorio remoto.
 origin = nombre del repositorio remoto ('origin' es estándar).
 URL = dirección de GitHub del repositorio remoto.
 
-Ejemplo: git remote add origin https://github.com/SusanaMG/udemy-heroes.git
+Ejemplo: git remote add origin https://github.com/nombreUsuario/udemy-heroes.git
 ------------------------------------------------------------------------------
 Para hacer una subida de cambios al origen desde una rama concreta y no tener que especificarla en las siguientes ocasiones (no se suben lo Tags):
 
@@ -571,7 +571,7 @@ Para crear un repositorio remoto sin ningún archivo en GitHub y subir (push) la 
 1º: New repository - ponerle nombre, escoger público/privado (de pago) y no configurar iniciar con README, ni fichero .gitignore, ni añadir licencia.
 
 2º: hacemos el push de nuestro repositorio local a GitHub (no se suben lo Tags):
-git remote add origin https://github.com/SusanaMG/udemy-heroes.git
+git remote add origin https://github.com/nombreUsuario/udemy-heroes.git
 git push -u origin master
 
 3º: metemos las credenciales de usuario y contraseña de GitHub.
@@ -604,8 +604,8 @@ git clone URLdelRepositorio
 git clone URLdelRepositorio nombreNuevo
 
 Ejemplos: 
-git clone https://github.com/SusanaMG/udemy-heroes.git
-git clone https://github.com/SusanaMG/udemy-heroes.git demo-10
+git clone https://github.com/nombreUsuario/udemy-heroes.git
+git clone https://github.com/nombreUsuario/udemy-heroes.git demo-10
 
 3º: en la máquina local, aparece el repositorio. 
 ------------------------------------------------------------------------------
@@ -800,8 +800,8 @@ git clone URLdelRepositorio
 git clone URLdelRepositorio nombreNuevo
 
 Ejemplos: 
-git clone https://github.com/SusanaMG/udemy-heroes.git
-git clone https://github.com/SusanaMG/udemy-heroes.git demo-10
+git clone https://github.com/nombreUsuario/udemy-heroes.git
+git clone https://github.com/nombreUsuario/udemy-heroes.git demo-10
 
 3º: en la máquina local, aparece el repositorio. 
 ------------------------------------------------------------------------------
@@ -1228,8 +1228,134 @@ Manage (o dando al nombre del usuario): se puede cambiar el rol, se le puede eli
 12. Ajustes y Seguridad
 
 ------------------------------------------------------------------------------
+Ajustes de las Organizaciones:
 
+Desde la organización desde la pestaña "Settings":
+* Profile: datos de perfil como nombre, correo, descripción, URL, localización, correo de cobros y gravatar. Ponerle una imagen. Renombrar y borrar la organización.
+* Member privileges: permitir o no que los miembros creen/borren repositorios para la organización, permisos por defecto al crear equipos. 
+* Billing: ajustes para pasar de una cuenta gratuita a una cuenta pagada.
+* Security: habilitar /deshabilitar el 2FA.
+* Audit log: listado de todas las acciones que se hagan a las configuraciones de la organización. 
+* Blocked users: usurios que se bloquean para realizar determianas funciones.
+* Webhooks: automatizar procesos para que GitHub dispare alguna rutina. 
+* Third-party access: habilitar/deshabilitar la restricción de que aplicaciones de terceros puedan revisar el estado del repositorio. 
+* Installed GitHub Apps: GitHub tiene aplicaciones para ayudar a manejar de mejor manera la organización.
+* Repository topics: poner tags al repositorio.
+* Projects: se pueden habilitar/deshabilitar los proyectos para todos los repositorios o algunos en concreto. 
+* OAuth Apps: por si se desea crear una aplicación que use el API de GitHub.
+* GitHub Apps: las app que nosotros hemos creado que usan el API de GitHub.
+------------------------------------------------------------------------------Ajustes de los usuarios:
 
+Desde "Settings" del usuario:
+
+* Profile: datos de perfil como nombre, correo, bio, URL, localización, la empresa. La foto. Dejar visible o no los repositorios a los que se contribuye. Habilitar el check si se está buscando trabajo. 
+* Account: cambio de contraseña, username.
+* Emails: como contactar con el usuario. 
+* Notifications: como se quiere ser notificado si se sigue un repositorio, cuando alguien nos hace un issue.
+* Billing: cambio de plan.
+* SSH and GPG keys: donde se pueden crear estas claves.
+* Security: habilitar 2FA, recovery tockens, historial de lo que se ha hecho con ese usuario.
+* Blocked users: bloqueo de usuarios. 
+* Repositories: aparecen los repositorios de los que somos dueños y los repositorios en los que participamos (opción de salirse de ellos). 
+* Organizations: listado de las organizaciones con las que se participa con esa cuenta. 
+* Saved replies: para poder llenar campos de texto de forma automática rápidamente.
+* Applications: las aplicaciones que el usuario tiene autorizadas para usar OAuth, las aplicaciones de GitHub del usuario, las aplicaciones que se integren en GitHub creadas por el usuario . 
+* Developer settings: OAuth Apps que son las aplicaciones a las cuales nosotros les hemos dado acceso para usar nuestro usuario a través del GitHub API. Personal access tokens que se usan para habilitar ciertas funcionalidades en GitHub o herramiendas de terceros a GitHub (ej: reemplazar contraseñas, aplicaciones de terceros que se conecten a GitHub pueden pedir un tocken en particular, etc). 
+* Settings de las organizaciones. 
+------------------------------------------------------------------------------
+2FA - Autenticación de doble factor:
+
+2FA agrega una capa más de seguridad para nuestra cuenta. 
+
+Desde "Settings" del usuario - "Security" - "Two-factor authentication" clicamos en el botón "Enable two-factor authetication" para habilitar la autenticación de doble factor. 
+
+Se puede hacer mediante una aplicación o mediante un SMS. 
+
+Mediante la aplicación: se usa un lector de códigos pero no cualquier aplicación. Usar la app "Authenticator" (Matt Rubin). La app nos ofrece el código. Para casos en los que se pierda o no se pueda usar la 2FA, GitHub nos ofrece unos códigos que se han de descargar en forma de fichero y guardar en un lugar seguro. 
+------------------------------------------------------------------------------
+Generando un token de acceso personal:
+
+Desde "Settings" del usuario - "Developer settings" - "Personal access tokens".
+
+Para generar un token:
+1º: botón "Generate new token".
+2º: poner un nombre y los privilegios (mejor que no tenga todos) (mejor que tenga los accesos mínimos que se necesiten para trabajar por cuestiones de seguridad).
+3º: botón "Generate token".
+
+Se puede regenerar si se cree que el token está siendo usado por otras personas. 
+------------------------------------------------------------------------------
+Generando una clave SSH - Mac OSX
+
+1º: desde consola del ordenador, nos colocamos en el directorio /Users/nombreUsuarioOS. 
+
+2º: comprobar que no hay un directorio SSH. Si ya existiese, indicaría que ya habríamos usado claves SSH y podríamos generar una nueva o usar la que ya tenemos.
+ls .ssh
+
+3º: crear la carpeta ssh y navegar dentro. 
+mkdir .ssh
+cd .ssh
+
+4º: ejecutar el siguiente comando:
+ssh-keygen -t rsa -C "correoelectronico@gmail.com"
+(-t rsa = tipo rsa, que es lo que pide GitHub)
+(-C = para especificar un nombre común)
+Escribirlo con cuidado porque si nos equivocamos, hay que borrar el directorio y volver a empezar. 
+
+Nos pide el path donde se quiere guardar esta clave y nos pide el passphrase (pequeño password con palabras) (es recomendable meterlo pero se puede no usar) (estamos usando el usuario del sistema operativo).
+
+5º: se ha generado la clave SSH y lo comprobamos viendo todos los archivos. Vemos 2 archivos: id_rsa (no tocar) y id_rsa.pub (público).
+ls -al
+
+6º: en el explorador de archivos, navegar a /Users/nombreUsuarioOS/.ssh y abrir en un editor de texto el fichero id_rsa.pub
+------------------------------------------------------------------------------
+Generando una clave SSH - Windows
+
+1º: desde consola del ordenador, nos colocamos en el directorio. Abrir la consola de Git en ese directorio:
+/Users/nombreUsuarioOS
+
+2º: comprobar que no hay un directorio SSH. Si ya existiese, indicaría que ya habríamos usado claves SSH y podríamos generar una nueva o usar la que ya tenemos.
+ls .ssh
+
+3º: crear la carpeta ssh y navegar dentro. 
+mkdir .ssh
+cd .ssh
+
+4º: ejecutar el siguiente comando:
+ssh-keygen -t rsa -C "correoelectronico@gmail.com"
+(-t rsa = tipo rsa, que es lo que pide GitHub)
+(-C = para especificar un nombre común)
+Escribirlo con cuidado porque si nos equivocamos, hay que borrar el directorio y volver a empezar. 
+
+Nos pide el path donde se quiere guardar esta clave y nos pide el passphrase (pequeño password con palabras) (es recomendable meterlo pero se puede no usar) (estamos usando el usuario del sistema operativo).
+
+5º: se ha generado la clave SSH y lo comprobamos yendo al directorio y viendo todos los archivos. Vemos 2 archivos: id_rsa (no tocar) y id_rsa.pub (público).
+ls -al
+
+6º: en el explorador de archivos, navegar a /Users/nombreUsuarioOS/.ssh y abrir en un editor de texto el fichero id_rsa.pub
+------------------------------------------------------------------------------
+Verificando la conexión SSH
+
+1º: desde "Settings" del usuario - "SSH and GPG keys" - "SSH keys", le damos al botón "New SSH key", ponemos un título y en el campo key pegamos todo el contenido del archivo /Users/nombreUsuarioOS/.ssh/id_rsa.pub. Añadimos la clave con "Add SSH key" 
+
+2º: realizamos la conexión desde nuestra máquina, desde la consola del sistema operativo. Da igual desde el directorio que estemos. 
+
+3º: escribir:
+ssh -T git@github.com
+
+Pregunta si nos queremos conectar: yes
+
+Sale: "The authenticity of host 'github.com (140.XX.XXX.X)' can't be established.
+RSA key fingerprint is SHA256:dasdasdasfdsgdfgertsdfsdfswerqwasdsfa.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'github.com,140.XX.XXX.X' (RSA) to the list of known hosts".
+
+Sale: Hi nombreUsuario! You've successfully authenticated, but GitHub does not provide shell access.
+
+** Por ejemplo, ahora vamos a crear una clone de un repositorio nuestro pero mediante la vía SSH:
+1º: en GitHub, vamos al repositorio, a "Clone or download", escogemos la opción "Use SSH" y copiamos la URL. 
+2º: desde consola de windows, navegamos hacia el diretorio donde queremos crear el repositorio y clonamos el repositorio: 
+git clone git@github.com:nombreUsuario/nombreRepositorio.git nombreRepositorio
+3º: navegamos al repositorio y ya podemos hacer push, pull, trabajar con la historia, etc.
 ------------------------------------------------------------------------------
 ******************************************************************************
 13. Gist
