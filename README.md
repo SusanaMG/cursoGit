@@ -1,4 +1,4 @@
-# cursoGit
+# cursoGit - Curso finalizado
 Repositorio de los repositorios del curso de GIT/GitHub
 
 ## NOTAS:
