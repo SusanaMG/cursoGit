@@ -1361,15 +1361,47 @@ git clone git@github.com:nombreUsuario/nombreRepositorio.git nombreRepositorio
 13. Gist
 
 ------------------------------------------------------------------------------
+*** TEORÍA: Gist ***
 
+Los gist sirven para crear una gran colección de códigos para tener a mano para cuando se necesiten y son fáciles de pasar a otras personas. 
 
+Los encontramos en: https://gist.github.com/
+------------------------------------------------------------------------------
+Creando un Gist:
+
+Un gist es un micro repositorio compuesto por uno o dos archivos. Es útil para compartir configuraciones, notas, snippets (recortes), etc.
+
+Existen 2 tipos de gist:
+Públicos: todo el mundo puede verlos y quedan indexados en una lista de gist. 
+Secretos: no está indexado y no se puede buscar a través de la lista. 
+
+Desde el menú del usuario, entramos a "Your gist". Ponemos una descripción, el título del archivo incluyendo la extensión (ej: index.html) y el código (ejemplo, código HTML). Lo creamos como púbilco con el botón "Create public gist".
+
+Es una buena práctica, que al poner la descripción, pongamos al inicio una palabra generalista y descriptiva que nos indique el tema o lenguaje. Esto nos servirá para facilidar su búsqueda cuando queramos usar un gist desde otra aplicación a través de los plugins. 
+
+Se pueden agregar comentarios usando markdown.
+
+Se puede añadir a una página web como si fuera un script usando el código tipo (<script src="https://gist.github.com/usuario/e454sdfsdf7effa.js"></script>), se puede descargar normal o comprimido, o elegir de una lista distintas formas de utilizar este archivo (embebido, compartido, clonado...).
+
+Por cada edición se que haga, se va a crear una revisión en la pestaña de "Revisiones" mostrando los cambios que se han producido. 
+
+Desde la pestaña de "Code" obtenemos el URL completo y se le puede compartir otras personas. 
+------------------------------------------------------------------------------
+Usando plugins de Gist con tokens personales:
+
+Por ejemplo, creamos un gist con un código de JavaScript o un código HTML. Vamos a usar el gist en un editor de código.
+
+En Atom, (Command+Shift+P para mostar un menú) instalamos el paquete "gist". Pluggin de aki77 para crear e insertar Gist. Entramos en los Settings del plugin y ponemos el Personal access token que tenemos creado en GitHub para acceso a gist (si no lo tenemos a mano, los editamos y los regeneramos el token para obtener el código). No puede haber espacios ni antes ni después del token. De este modo, le estamos dando permiso a Atom para que acceda a los gist que tenemos creados en GitHub.
+
+En Atom, en un fichero, a la hora de utilizar el gist, utilizamos el plugin. Tecleamos Command+Shift+P para mostar el menú de selección y escribimos "gist" para elegir "Gist: List". Se cargan los gist que tenemos creados en GitHub y elegimos el que nos interese. 
+----------------------------------------------------------------------------
+Otros detalles de los Gist:
+
+Los gist también funcionan como pequeños repositorios, por lo tanto, se pueden hacer forks, marcar como favoritos, ordenar mediante filtros. En la barra de búsqueda de GitHubGist se puede buscar sobre algún tema en particular.
+
+Si se quiere borrar un gist, se selecciona el gist a eliminar y dentro de él, está el botón "Delete".
 ------------------------------------------------------------------------------
 ******************************************************************************
 14. Fin del curso
 
 ------------------------------------------------------------------------------
-
-
-
-
-
